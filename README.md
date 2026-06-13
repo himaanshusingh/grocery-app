@@ -1,213 +1,155 @@
-# Grocery Delivery Web Application
+# 🛒 Nectar Grocery App
 
-A fully responsive grocery delivery web application built from a mobile-first Figma design using React, TypeScript, Tailwind CSS, and Zustand. The project recreates the complete onboarding, shopping, cart, favorites, and checkout experience from the assignment while extending the interface into a structured desktop experience with custom responsive layouts.
+Nectar is a premium, interactive, mobile-first e-commerce web application built with **React 19**, **TypeScript**, **Vite 8**, and **Tailwind CSS v4**. It simulates a modern online grocery shopping experience, from multi-step onboarding and location selection to rich product exploration, search filtering, persistent cart state, and order checkout scenarios.
 
-## Overview
+---
 
-This project was developed as a frontend internship assignment focused on translating a Figma design into a production-style web application. The implementation follows a component-driven architecture, strict TypeScript usage, utility-first styling with Tailwind CSS, and modular global state management with Zustand.
+## 🌟 Core Features
 
-## Highlights
+- **📱 Onboarding & Mock Auth Flow**: 
+  - Splash screen and sliding onboarding cards.
+  - Multi-step login flow (Phone Number/Email) with simulated verification codes.
+  - Location picker simulating Zone and Area selections to customize serviceability.
+  - Persistent user profile session using client-side state.
 
-- Mobile-first UI implementation based strictly on the provided Figma design.
-- Custom desktop experience designed for larger screens instead of scaling up the mobile layout.
-- Separate Zustand stores for key application domains such as authentication, products, cart, favorites, filters, and checkout.
-- Mock JSON-driven product and category data with simulated API behavior using timeouts.
-- Responsive product listing with grid layouts, filter sidebar, and bottom navigation on mobile.
-- End-to-end user flows including onboarding, authentication, location selection, browsing, product details, search, filtering, cart, favorites, and order result screens.
-- Improved UX with loading states, empty states, error handling, debounced search, and smooth transitions.
+- **🥦 Product & Category Browsing**:
+  - Carousel hero banners presenting dynamic promotional offers.
+  - Category-based browsing (e.g., *Fresh Fruits & Vegetables, Cooking Oil & Ghee, Meat & Fish, Bakery & Snacks, Dairy & Eggs, Beverages*).
+  - Detailed product views including ratings, brand names, custom product descriptions, and sizing specifications (units).
 
-## Features
+- **🔍 Search & Filter Rails**:
+  - Live client-side search indexing name, description, and brand attributes.
+  - Interactive Filter sheets (bottom sheets on mobile, sidebars on desktop) allowing users to filter by price range and specific brand categories.
 
-### Authentication & Onboarding
-- Splash screen
-- Welcome / onboarding flow
-- Login screen
-- Sign up screen
-- OTP / verification flow
-- Location selection
+- **❤️ Favorites & Real-time Cart Management**:
+  - Single-click favorites toggle to build personal grocery lists.
+  - Interactive add-to-cart operations directly from cards or details page.
+  - Quantity control with automatic item removal when count drops to zero.
 
-### Shopping Experience
-- Home page
-- Category-based product listing
-- Product details page
-- Search with debounce
-- Product filters
-- Favorites / wishlist
-- Shopping cart
+- **🎟️ Promo Code & Checkout Simulator**:
+  - Simulated network API request delay during checkout (1.5 seconds) with a skeleton loading state.
+  - Interactive promo codes:
+    - **`NECTAR10`**: Applies a **10%** discount on the cart subtotal.
+    - **`NECTAR20`**: Applies a **20%** discount on the cart subtotal.
+    - **`FAIL`**: Forces a checkout simulation failure to test error outcome states.
+  - Post-checkout redirection to success (`/order-success`) or failure (`/order-failed`) screens.
 
-### Checkout Flow
-- Checkout experience
-- Order success state
-- Order failure / error state
+- **💾 Persistent State**:
+  - Uses state persistence to store authentication records, cart items, and favorite products in browser LocalStorage. Refreshing the browser does not lose your cart or authentication status.
 
-### Responsive Experience
-- Mobile-first implementation aligned with the Figma reference
-- Bottom navigation for small screens
-- Desktop layout with `max-w-7xl` container strategy
-- Product grids with 4+ columns on larger screens
-- Sidebar-driven category and filter navigation on desktop
-- Sticky order summary during checkout on desktop
+---
 
-## Tech Stack
+## 🛠️ Technology Stack
 
-- React
-- TypeScript (strict mode)
-- Tailwind CSS
-- Zustand
-- React Router
-- Vite or Next.js (depending on your implementation)
+- **Framework**: [React 19](https://react.dev/) (Functional Components, Hooks)
+- **Language**: [TypeScript](https://www.typescriptlang.org/) for type safety
+- **Build Tool & Server**: [Vite 8](https://vite.dev/) (extremely fast HMR and compilation)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (modern styling utilities) & [Lucide React](https://lucide.dev/) for clean UI icons
+- **State Management**: [Zustand 5](https://github.com/pmndrs/zustand) with client-side persistent storage middleware
+- **Routing**: [React Router v7](https://reactrouter.com/) (Client-side routing with nested layouts)
 
-## Architecture Notes
+---
 
-The application is structured to keep UI, state, and data concerns clearly separated. Zustand is especially suitable here because smaller, focused stores improve maintainability and align with recommended usage patterns for scalable React applications.[page:1]
+## 📁 Project Directory Structure
 
-Suggested domain separation:
-- Auth store
-- Product store
-- Category store
-- Cart store
-- Favorites store
-- Filter/search store
-- Checkout store
-- UI store
-
-## Project Structure
-
-Update this section to match your repository exactly once you finalize or share the folder structure.
-
-```bash
-.
-├── public/
+```text
+grocery-app/
+├── public/                 # Static assets (favicons, etc.)
 ├── src/
-│   ├── components/
-│   ├── lib/
-│       ├── stores/
-│   ├── pages/
-│   ├── App.tsx
-│   └── main.tsx
-├── .gitignore
-├── eslint.config.json
-├── index.html
-├── tsconfig.json
-└── vite.config.ts
+│   ├── components/         # Reusable UI components
+│   │   ├── AuthShell.tsx       # Standard frame wrapper for auth screens
+│   │   ├── BottomNav.tsx       # Mobile-optimized persistent navigation bar
+│   │   ├── FilterSheet.tsx     # Bottom-sheet filter drawer for mobile view
+│   │   ├── FilterSidebar.tsx   # Sidebar filtering block for desktop view
+│   │   ├── Header.tsx          # Top branding header with navigation routes
+│   │   ├── PrimaryButton.tsx   # Reusable branded green buttons
+│   │   ├── ProductCard.tsx     # Interactive catalog product card
+│   │   └── SkeletonLoader.tsx  # Loading screen placeholders
+│   ├── lib/                # Custom utilities and mock datasets
+│   │   ├── store/              # Zustand global state slices
+│   │   │   ├── auth.ts             # Auth & user profile states
+│   │   │   ├── cart.ts             # Cart logic, subtotal, and checkout actions
+│   │   │   ├── favorites.ts        # Wishlist persistent store
+│   │   │   └── products.ts         # Search & filter engine store
+│   │   ├── mockData.ts         # Static categories, products, and banner arrays
+│   │   ├── types.ts            # Core TypeScript interfaces & enums
+│   │   └── utils.ts            # Styling helper utilities (clsx & tailwind-merge)
+│   ├── pages/              # View screens mapping to app routes
+│   │   ├── Splash.tsx          # Animated launch logo screen
+│   │   ├── Onboarding.tsx      # Welcome slider flow
+│   │   ├── SignIn.tsx          # Main gateway choice screen
+│   │   ├── NumberPage.tsx      # Phone input mask mockup
+│   │   ├── Verify.tsx          # PIN authentication screen
+│   │   ├── Location.tsx        # Zone/Area selector dropdowns
+│   │   ├── Login.tsx           # Email credentials entry page
+│   │   ├── SignUp.tsx          # User profile registration
+│   │   ├── Home.tsx            # Main catalog home feed
+│   │   ├── Explore.tsx         # Category list overview
+│   │   ├── CategoryProducts.tsx# Products list for specific categories
+│   │   ├── ProductDetails.tsx  # Product deep-dive details card
+│   │   ├── Search.tsx          # Global search results & filters view
+│   │   ├── Favorites.tsx       # User's favorited list grid
+│   │   ├── Cart.tsx            # Cart details, promo code applier, & checkout trigger
+│   │   ├── OrderSuccess.tsx    # Success checkout notification
+│   │   └── OrderFailed.tsx     # Failed checkout warning
+│   ├── App.tsx             # Main routing registry and MainLayout setup
+│   ├── main.tsx            # DOM node injection bootstrapper
+│   └── styles.css          # Core CSS variables, Tailwind directives, & keyframes
+├── package.json            # Node project configuration & dependencies
+├── tsconfig.json           # TypeScript compilation settings
+└── vite.config.ts          # Vite bundler options
 ```
 
-## Getting Started
+---
 
-### Prerequisites
+## 🚀 Getting Started
 
-- Node.js 18+
-- npm, pnpm, or yarn
+### 📋 Prerequisites
 
-### Installation
+To run this application locally, you will need **Node.js** (v18.0.0 or higher recommended) and **npm** or another package manager like yarn/pnpm installed on your machine.
 
-```bash
-git clone <your-repository-url>
-cd <your-project-folder>
-npm install
-```
+### ⚙️ Installation
 
-### Run Development Server
+1. Clone or download this project to your local directory.
+2. Open your terminal in the project root folder.
+3. Install the project dependencies by running:
+   ```bash
+   npm install
+   ```
 
+### 💻 Running the Development Server
+
+Start the local development server with hot-module replacement (HMR) using:
 ```bash
 npm run dev
 ```
 
-### Build for Production
+By default, the application will boot on `http://localhost:5173/`. Open this URL in your web browser.
 
+### 🏗️ Building for Production
+
+To compile the application into static files optimized for production deployment, run:
 ```bash
 npm run build
 ```
+The output files will be created in the `dist/` directory.
 
-### Preview Production Build
-
+You can preview the built production app locally using:
 ```bash
 npm run preview
 ```
 
-## Available Scripts
+---
 
-```bash
-npm run dev      # Start development server
-npm run build    # Create production build
-npm run preview  # Preview production build
-npm run lint     # Run lint checks
-```
+## 🧪 Testing the Application Flows
 
-## Mock Data & State
+Here is a recommended path to test the application flows:
 
-The application uses local mock JSON data for products and categories, with API-like delays simulated through `setTimeout` to mimic loading states required by the assignment. Zustand selectors and small, purpose-specific stores help reduce unnecessary re-renders and keep state access predictable in larger React apps.[page:1]
-
-## Responsive Design Approach
-
-The mobile UI closely follows the original Figma screens, including spacing, card patterns, navigation behavior, and overall visual hierarchy. For desktop, the layout was intentionally redesigned using wider containers, multi-column product grids, side filters, and a more dashboard-like shopping flow, which is closer to the assignment expectation than simply enlarging the mobile interface.
-
-## Type Safety
-
-The codebase follows strict TypeScript practices with typed interfaces and enums for domain modeling.
-
-Key models include:
-- `Product`
-- `CartItem`
-- `User`
-- `OrderStatus`
-- `ProductCategory`
-
-## Quality Considerations
-
-- Strict TypeScript without `any`
-- Reusable and composable UI components
-- Consistent Tailwind utility patterns
-- Accessible form controls and keyboard-friendly interactions
-- Loading, empty, and error states across major screens
-- Clean separation between presentational and stateful logic
-
-## Deployment
-
-This project can be deployed on platforms such as Vercel or Netlify. A production deployment link should be added below once the application is live.
-
-- Live Demo: [Add deployment link here](#)
-- Repository: [Add GitHub repository link here](#)
-
-## Assignment Context
-
-The assignment required implementing all visible flows from the provided grocery app Figma design while using React, TypeScript, Tailwind CSS, and Zustand as mandatory technologies. A well-structured README should document project description, setup, repository structure, testing, and the overall technical approach for frontend repositories.[page:2]
-
-## Screens Covered
-
-- Splash
-- Onboarding
-- Login
-- Sign Up
-- OTP Verification
-- Location Selection
-- Home
-- Category Listing
-- Product Details
-- Search
-- Filters
-- Cart
-- Favorites
-- Checkout
-- Order Success
-- Order Failure
-
-## Future Improvements
-
-- Unit and integration test coverage
-- Persistent cart and auth session handling
-- Better image optimization strategy
-- Improved accessibility audit
-- Advanced filtering and sorting combinations
-- Real backend/API integration
-
-## Author
-
-**Himanshu Singh**  
-Frontend Developer | MERN Stack | TypeScript | React
-
-- LinkedIn: [https://www.linkedin.com/in/himaanshu-singh/](#)
-
-## License
-
-This project was created as part of a frontend internship assignment and is intended for learning, evaluation, and portfolio use.
+1. **Authentication Flow**: Click through the onboarding screens, type a mock number or login credentials, fill out the location dropdowns, and you will land on the **Home** page.
+2. **Browsing**: Click on category banners or individual products to check item detail views. Toggle favorites using the heart icon on any card.
+3. **Cart Operations**: Add a few items to the cart from the home page. Go to the cart page from the bottom navigation or the top header.
+4. **Discounts (Promo Codes)**:
+   - Try typing `NECTAR10` or `NECTAR20` and click **Apply**. Observe the price reduction update in real-time.
+5. **Checkout Success/Failure**:
+   - **Success**: Click **Go to Checkout**. You will see a loading state for 1.5 seconds, then land on the **Order Success** page.
+   - **Failure**: In the cart, apply the promo code `FAIL`. Then click **Go to Checkout**. After the loading state, you will land on the **Order Failed** page.
