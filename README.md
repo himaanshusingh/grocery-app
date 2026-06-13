@@ -206,8 +206,7 @@ The assignment required implementing all visible flows from the provided grocery
 **Himanshu Singh**  
 Frontend Developer | MERN Stack | TypeScript | React
 
-- LinkedIn: [Add your LinkedIn link here](#)
-- Portfolio: [Add your portfolio link here](#)
+- LinkedIn: [https://www.linkedin.com/in/himaanshu-singh/](#)
 
 ## License
 
